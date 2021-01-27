@@ -1,0 +1,33 @@
+<% if promotion.errors.any? %>
+  Erros: <%= promotion.errors.full_messages.join(', ') %>
+<% end %>
+<%= form_with(model: promotion, local: true) do |form| %>
+  <div class="form-group">
+    <%= form.label 'Nome' %>
+    <%= form.text_field :name,class:'form-control', id:'Nome' %>
+  </div>
+  <div class="form-group">
+    <%= form.label 'Descrição' %>
+    <%= form.text_area :description,class:'form-control',id:'Descrição' %>
+  </div>
+  <div class="form-group">
+    <%= form.label 'Código' %>
+    <%= form.text_field  :code, id:'Código' %>
+  </div>
+  <div class="form-group">
+    <%= form.label 'Desconto' %>
+    <%= form.text_field :discount_rate, id:'Desconto' %>
+  </div>
+  <div class="form-group">
+    <%= form.label 'Quantidade de cupons' %>
+    <%= form.text_field  :coupon_quantity, id:'Quantidade de cupons' %>
+  </div>
+  <div class="form-group">
+    <%= form.label 'Data de término' %>
+    <%= form.text_field  :expiration_date, id:'Data de término' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit button_submit, class: 'btn btn-primary' %>
+  </div>
+<% end %>

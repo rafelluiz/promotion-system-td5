@@ -5,6 +5,20 @@ class PromotionsController < ApplicationController
     @promotions = Promotion.all
   end
 
+  def new
+    @promotion = Promotion.new
+  end
+
+  def create
+    @promotion = Promotion.new(promotion_params)
+
+    if @promotion.save
+      redirect_to promotion_path(Promotion.last), notice: 'Promotion was successfully created.'
+    else
+      render :new
+    end
+  end
+
   def show; end
 
   private
