@@ -1,0 +1,31 @@
+<p>
+  <strong>Nome:</strong>
+  <%= @promotion.name %>
+</p>
+
+<p>
+  <strong>Descrição:</strong>
+  <%= @promotion.description %>
+</p>
+
+<p>
+  <strong>Porcentagem de Desconto:</strong>
+  <%= number_to_percentage @promotion.discount_rate,precision:2, separator: ',' %>
+</p>
+
+<p>
+  <strong>Código do Cupom:</strong>
+  <%= @promotion.code %>
+</p>
+
+<p>
+  <strong>Data de Expiração:</strong>
+  <%= @promotion.expiration_date.strftime('%d/%m/%Y') %>
+</p>
+
+<p>
+  <strong>Quantidade de cupom:</strong>
+  <%= @promotion.coupon_quantity %>
+</p>
+
+<%= link_to 'Voltar', promotions_path %>
