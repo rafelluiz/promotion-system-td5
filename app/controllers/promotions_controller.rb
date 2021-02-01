@@ -13,9 +13,9 @@ class PromotionsController < ApplicationController
     @promotion = Promotion.new(promotion_params)
 
     if @promotion.save
-      redirect_to promotion_path(Promotion.last), notice: 'Promotion was successfully created.'
+      redirect_to @promotion, notice: 'Promotion was successfully created.'
     else
-      render :new
+      render :new ,notice: 'Promotion could not be created.'
     end
   end
 
