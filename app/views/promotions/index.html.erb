@@ -1,5 +1,5 @@
 <% if @promotions.blank? %>
-  <p>Nenhuma promoção cadastrada</p>
+  <div class="warning">Nenhuma promoção cadastrada</div>
 <% else %>
   <dl>
     <% @promotions.each do |promotion| %>
@@ -11,6 +11,6 @@
       <dd><%=number_to_percentage promotion.discount_rate, precision:2, separator: ','%></dd>
     <% end %>
   </dl>
-  <%= link_to 'Voltar', root_path %>
 <% end %>
 <%= link_to 'Registrar uma promoção', new_promotion_path %>
+<%= link_to 'Voltar', root_path %>
