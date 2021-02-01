@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe Promotion do
+
   context 'validation' do
     it 'attributes cannot be blank' do
       promotion = Promotion.new
@@ -10,13 +11,14 @@ describe Promotion do
     end
 
     it 'description is optional' do
-      promotion = Promotion.new(name: 'Natal', description: '',code: 'NAT',coupon_quantity:10,
+      promotion = Promotion.new(name: 'Natal', description: '', code: 'NAT',
+                                coupon_quantity: 10, discount_rate: 10,
                                 expiration_date: '2021-10-10')
 
       expect(promotion.valid?).to eq true
     end
 
-    it 'error message are in portuguese' do
+    it 'error messages are in portuguese' do
       promotion = Promotion.new
 
       promotion.valid?

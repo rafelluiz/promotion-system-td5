@@ -13,9 +13,14 @@ feature 'Admin registers a valid promotion' do
     fill_in 'Data de término', with: ''
     click_on 'Criar promoção'
 
-    # Conferir se está errado "NÃO ESQUECER"
-    expect(page).to have_content('não pode ficar em branco', count: 5)
-    #expect(page).to have_content('não pode ficar em branco', count: 6)
+    expect(Promotion.count).to eq 0
+    expect(page).to have_content('Não foi possível criar a promoção')
+    expect(page).to have_content('Nome não pode ficar em branco')
+    expect(page).to have_content('Código não pode ficar em branco')
+    expect(page).to have_content('Desconto não pode ficar em branco')
+    expect(page).to have_content('Quantidade de cupons não pode ficar em branco')
+    expect(page).to have_content('Data de término não pode ficar em branco')
+
   end
 
   scenario 'and code must be unique' do
@@ -29,7 +34,7 @@ feature 'Admin registers a valid promotion' do
     fill_in 'Código', with: 'NATAL10'
     click_on 'Criar promoção'
 
-    expect(page).to have_content('deve ser único')
+    expect(page).to have_content('Código já está em uso')
   end
 end
 

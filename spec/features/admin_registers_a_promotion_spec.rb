@@ -7,6 +7,7 @@ feature 'Admin registers a promotion' do
 
     expect(page).to have_link('Registrar uma promoção',
                               href: new_promotion_path)
+
   end
 
   scenario 'successfully' do
@@ -14,7 +15,7 @@ feature 'Admin registers a promotion' do
     click_on 'Promoções'
     click_on 'Registrar uma promoção'
 
-    fill_in 'Nome', with: 'Cyber Monday'
+    fill_in 'Nome', with: 'Cyber Monday' # fill_in é o metodo para preencher um INPUT
     fill_in 'Descrição', with: 'Promoção de Cyber Monday'
     fill_in 'Código', with: 'CYBER15'
     fill_in 'Desconto', with: '15'
@@ -22,7 +23,8 @@ feature 'Admin registers a promotion' do
     fill_in 'Data de término', with: '22/12/2033'
     click_on 'Criar promoção'
 
-    expect(current_path).to eq(promotion_path(Promotion.last))
+    promotion = Promotion.last
+    expect(current_path).to eq(promotion_path(promotion))
     expect(page).to have_content('Cyber Monday')
     expect(page).to have_content('Promoção de Cyber Monday')
     expect(page).to have_content('15,00%')

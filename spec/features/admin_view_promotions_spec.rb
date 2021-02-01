@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 feature 'Admin view promotions' do
+
   scenario 'successfully' do
-    # Arrange
+    # Arrange 
     Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                       expiration_date: '22/12/2033')
@@ -10,10 +11,11 @@ feature 'Admin view promotions' do
                       description: 'Promoção de Cyber Monday',
                       code: 'CYBER15', discount_rate: 15,
                       expiration_date: '22/12/2033')
+
     # Act
     visit root_path
     click_on 'Promoções'
-    
+
     # Assert
     expect(page).to have_content('Natal')
     expect(page).to have_content('Promoção de Natal')
@@ -45,9 +47,13 @@ feature 'Admin view promotions' do
   end
 
   scenario 'and no promotion are created' do
+    # Arrange
+
+    # Act
     visit root_path
     click_on 'Promoções'
 
+    # Assert
     expect(page).to have_content('Nenhuma promoção cadastrada')
   end
 
