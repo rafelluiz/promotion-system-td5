@@ -1,5 +1,5 @@
 class PromotionsController < ApplicationController
-  before_action :set_promotion, only: [:show]
+  before_action :set_promotion, only: %i[show edit update]
 
   def index
     @promotions = Promotion.all
@@ -20,6 +20,16 @@ class PromotionsController < ApplicationController
   end
 
   def show; end
+
+  def edit; end
+
+  def update
+    if @promotion.update(promotion_params)
+      redirect_to @promotion, notice: 'Promotion was successfully updated.'
+    else
+      render :edit
+    end
+  end
 
   private
 
