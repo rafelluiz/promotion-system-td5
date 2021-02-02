@@ -1,3 +1,6 @@
+<% if flash.notice %>
+  <%= flash.notice %>
+<% end %>
 <p>
   <strong>Nome:</strong>
   <%= @promotion.name %>
@@ -29,4 +32,12 @@
 </p>
 
 <%= link_to 'Voltar', promotions_path %>
+<%= link_to 'Gerar cupons', generate_coupons_promotion_path(@promotion), method: :post%>
+
 <%= link_to 'Editar', edit_promotion_path(@promotion) %>
+<%= link_to 'Apagar', promotion_path(@promotion), method: :delete, data:{confirm:'Are you sure you want to delete?'}%>
+<%= button_to 'Apagar btn',promotion_path(@promotion), method: :delete, data:{confirm:'Are you sure you want to delete?'} %>
+
+<% @promotion.coupons.each do |coupon|  %>
+  <%= coupon.code %>
+<% end %>
