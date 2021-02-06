@@ -44,4 +44,21 @@ describe Promotion do
       expect(promotion.errors[:code]).to include('já está em uso')
     end
   end
+
+  context '#generate_coupons' do
+    it 'generate coupons of coupon_quantity' do
+      promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                                    code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                                    expiration_date: '22/12/2033')
+
+      promotion.generate_coupons!
+
+      expect(promotion.coupons.size).to eq 100
+      codes = promotion.coupons.pluck(:code)
+      expect(codes).to include('NATAL10-0001')
+      expect(codes).to include('NATAL10-0100')
+      expect(codes).not_to include('NATAL10-0000')
+      expect(codes).not_to include('NATAL10-0101')
+    end
+  end
 end

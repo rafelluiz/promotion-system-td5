@@ -39,5 +39,10 @@
 <%= button_to 'Apagar btn',promotion_path(@promotion), method: :delete, data:{confirm:'Are you sure you want to delete?'} %>
 
 <% @promotion.coupons.each do |coupon|  %>
-  <%= coupon.code %>
+  <div id="coupon-<%= coupon.id %>">
+    <span><%= coupon.code %> (<%= t(coupon.status) %>)</span>
+    <% if coupon.active? %>
+      <%= link_to 'Inativar', inactivate_coupon_path(coupon), method: :post %>
+    <% end %>
+  </div>
 <% end %>
