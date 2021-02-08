@@ -1,5 +1,6 @@
 class PromotionsController < ApplicationController
-  before_action :set_promotion,:authenticate! , only: %i[show edit update destroy generate_coupons]
+  before_action :set_promotion, only: %i[show edit update destroy generate_coupons]
+
 
   def index
     @promotions = Promotion.all
@@ -11,6 +12,7 @@ class PromotionsController < ApplicationController
 
   def create
     @promotion = Promotion.new(promotion_params)
+    @promotion.user = current_user
 
     if @promotion.save
       redirect_to @promotion, notice: 'Promotion was successfully created.'
@@ -49,7 +51,8 @@ class PromotionsController < ApplicationController
   end
 
   def promotion_params
-    params.require(:promotion).permit(:name, :description,:code,:discount_rate,:coupon_quantity,:expiration_date)
+    params.require(:promotion).permit(:name, :description,:code,:discount_rate,:coupon_quantity,
+                                      :expiration_date)
   end
 
 end
