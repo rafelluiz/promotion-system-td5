@@ -11,9 +11,11 @@ describe Promotion do
     end
 
     it 'description is optional' do
+      user = User.create!(email: 'user@example.com',password: 'password')
+
       promotion = Promotion.new(name: 'Natal', description: '', code: 'NAT',
                                 coupon_quantity: 10, discount_rate: 10,
-                                expiration_date: '2021-10-10')
+                                expiration_date: '2021-10-10',user:user)
 
       expect(promotion.valid?).to eq true
     end
@@ -22,7 +24,7 @@ describe Promotion do
       promotion = Promotion.new
 
       promotion.valid?
-
+      expect(promotion.errors[:user]).to include('é obrigatório(a)')
       expect(promotion.errors[:name]).to include('não pode ficar em branco')
       expect(promotion.errors[:code]).to include('não pode ficar em branco')
       expect(promotion.errors[:discount_rate]).to include('não pode ficar em '\
@@ -34,9 +36,11 @@ describe Promotion do
     end
 
     it 'code must be uniq' do
+      user = User.create!(email: 'user@example.com',password: 'password')
+
       Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                         code: 'NATAL10', discount_rate: 10,
-                        coupon_quantity: 100, expiration_date: '22/12/2033')
+                        coupon_quantity: 100, expiration_date: '22/12/2033',user:user)
       promotion = Promotion.new(code: 'NATAL10')
 
       promotion.valid?
@@ -47,9 +51,11 @@ describe Promotion do
 
   context '#generate_coupons' do
     it 'generate coupons of coupon_quantity' do
+      user = User.create!(email: 'user@example.com',password: 'password')
+
       promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                     code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                                    expiration_date: '22/12/2033')
+                                    expiration_date: '22/12/2033',user:user)
 
       promotion.generate_coupons!
 
