@@ -7,7 +7,7 @@ describe Promotion do
       promotion = Promotion.new
 
       expect(promotion.valid?).to eq false
-      expect(promotion.errors.count).to eq 5
+      expect(promotion.errors.count).to eq 6
     end
 
     it 'description is optional' do
