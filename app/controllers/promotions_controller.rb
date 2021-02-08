@@ -1,5 +1,5 @@
 class PromotionsController < ApplicationController
-  before_action :set_promotion, only: %i[show edit update destroy generate_coupons]
+  before_action :set_promotion,:authenticate! , only: %i[show edit update destroy generate_coupons]
 
   def index
     @promotions = Promotion.all

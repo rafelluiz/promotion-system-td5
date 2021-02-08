@@ -10,7 +10,18 @@ feature 'Admin registers a promotion' do
 
   end
 
+  scenario 'from index page' do
+    user = User.create!(email:'user@example.com',password: 'password')
+
+    login_as user, scope: :user
+    visit root_path
+    click_on 'Promoções'
+  end
+
   scenario 'successfully' do
+    user = User.create!(email: 'user@example.com',password: 'password')
+    login_as user, scope: :user
+
     visit root_path
     click_on 'Promoções'
     click_on 'Registrar uma promoção'
@@ -22,8 +33,9 @@ feature 'Admin registers a promotion' do
     fill_in 'Quantidade de cupons', with: '90'
     fill_in 'Data de término', with: '22/12/2033'
     click_on 'Criar promoção'
-
+    
     promotion = Promotion.last
+
     expect(current_path).to eq(promotion_path(promotion))
     expect(page).to have_content('Cyber Monday')
     expect(page).to have_content('Promoção de Cyber Monday')
@@ -31,6 +43,8 @@ feature 'Admin registers a promotion' do
     expect(page).to have_content('CYBER15')
     expect(page).to have_content('22/12/2033')
     expect(page).to have_content('90')
+    expect(page).to have_content("Cadastrada por:#{user.email}")
     expect(page).to have_link('Voltar')
+
   end
 end
