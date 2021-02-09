@@ -47,6 +47,32 @@ describe Promotion do
 
       expect(promotion.errors[:code]).to include('já está em uso')
     end
+
+    it 'do not change quantity of coupons' do
+      user = User.create!(email: 'user@example.com',password: 'password')
+
+      promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                        code: 'NATAL10', discount_rate: 10,
+                        coupon_quantity: 2, expiration_date: '22/12/2033',user:user)
+
+      promotion.generate_coupons!
+
+      promotion.update(coupon_quantity:5)
+
+      expect(promotion.reload.coupon_quantity).to eq 2
+    end
+
+    it 'change quantity of coupons' do
+      user = User.create!(email: 'user@example.com',password: 'password')
+
+      promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                                    code: 'NATAL10', discount_rate: 10,
+                                    coupon_quantity: 2, expiration_date: '22/12/2033',user:user)
+
+      promotion.update(coupon_quantity:5)
+
+      expect(promotion.reload.coupon_quantity).to eq 5
+    end
   end
 
   context '#generate_coupons' do

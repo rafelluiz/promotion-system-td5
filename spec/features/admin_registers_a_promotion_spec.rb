@@ -2,9 +2,7 @@ require 'rails_helper'
 
 feature 'Admin registers a promotion' do
   scenario 'must be signed in' do
-    user = User.create!(email:'user@example.com',password: 'password')
 
-    login_as user, scope: :user
     visit root_path
     click_on 'Promoções'
 

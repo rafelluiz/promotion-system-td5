@@ -79,6 +79,7 @@ feature 'Admin Edit a valid promotion' do
     click_on 'Enviar'
 
     promotion = Promotion.last
+
     expect(current_path).to eq(promotion_path(promotion))
     expect(page).to have_content('Cyber Monday')
     expect(page).to have_content('Promoção de Cyber Monday')
@@ -89,5 +90,28 @@ feature 'Admin Edit a valid promotion' do
 
     expect(page).to have_link('Voltar')
 
+  end
+
+  scenario 'and if coupon was not generated' do
+    user = User.create!(email: 'user@example.com',password: 'password')
+
+    Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                      code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                      expiration_date: '22/12/2033',user:user)
+
+    promotion = Promotion.last
+
+    login_as user, scope: :user
+    promotion.generate_coupons!
+
+
+    visit root_path
+    click_on 'Promoções'
+    click_on 'Natal'
+    click_on 'Editar'
+
+
+    expect(page).to have_content('Natal')
+    expect(page).not_to have_field('Quantidade de cupons', with: '100')
   end
 end
