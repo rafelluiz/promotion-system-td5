@@ -9,7 +9,6 @@ feature 'Admin registers a promotion' do
     click_on 'Promoções'
 
     expect(current_path).to eq new_user_session_path
-
   end
 
   scenario 'from index page' do
@@ -22,8 +21,8 @@ feature 'Admin registers a promotion' do
 
   scenario 'successfully' do
     user = User.create!(email: 'user@example.com',password: 'password')
-    login_as user, scope: :user
 
+    login_as user, scope: :user
     visit root_path
     click_on 'Promoções'
     click_on 'Registrar uma promoção'
@@ -34,6 +33,7 @@ feature 'Admin registers a promotion' do
     fill_in 'Desconto', with: '15'
     fill_in 'Quantidade de cupons', with: '90'
     fill_in 'Data de término', with: '22/12/2033'
+
     click_on 'Criar promoção'
     
     promotion = Promotion.last
