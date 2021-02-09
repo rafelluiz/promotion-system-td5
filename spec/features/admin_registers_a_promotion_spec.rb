@@ -1,15 +1,14 @@
 require 'rails_helper'
 
 feature 'Admin registers a promotion' do
-  scenario 'from index page' do
+  scenario 'must be signed in' do
     user = User.create!(email:'user@example.com',password: 'password')
 
     login_as user, scope: :user
     visit root_path
     click_on 'Promoções'
 
-    expect(page).to have_link('Registrar uma promoção',
-                              href: new_promotion_path)
+    expect(current_path).to eq new_user_session_path
 
   end
 
