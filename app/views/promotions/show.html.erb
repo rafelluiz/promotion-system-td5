@@ -36,7 +36,10 @@
 </p>
 
 <%= link_to 'Voltar', promotions_path %>
-<%= link_to 'Gerar cupons', generate_coupons_promotion_path(@promotion), method: :post%>
+
+<% if @promotion.coupons.count == 0 %>
+  <%= link_to 'Gerar cupons', generate_coupons_promotion_path(@promotion), method: :post%>
+<% end %>
 
 <%= link_to 'Editar', edit_promotion_path(@promotion) %>
 <%= link_to 'Apagar', promotion_path(@promotion), method: :delete, data:{confirm:'Are you sure you want to delete?'}%>

@@ -3,6 +3,7 @@ class CouponsController < ApplicationController
 
   def inactivate
     @coupon.inactive!
+    #raise Error if @coupon Entender depois pq isso quebrou
     redirect_to @coupon.promotion
   end
 
