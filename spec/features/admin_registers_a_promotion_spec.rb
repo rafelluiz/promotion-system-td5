@@ -45,6 +45,24 @@ feature 'Admin registers a promotion' do
     expect(page).to have_content('90')
     expect(page).to have_content("Cadastrada por: #{user.email}")
     expect(page).to have_link('Voltar')
+  end
+
+  scenario 'and choose product categories' do
+    user = User.create!(email: 'user@example.com',password: 'password')
+
+    login_as user, scope: :user
+    visit root_path
+    click_on 'Promoções'
+    click_on 'Registrar uma promoção'
+
+    fill_in 'Nome', with: 'Cyber Monday' # fill_in é o metodo para preencher um INPUT
+    fill_in 'Descrição', with: 'Promoção de Cyber Monday'
+    fill_in 'Código', with: 'CYBER15'
+    fill_in 'Desconto', with: '15'
+    fill_in 'Quantidade de cupons', with: '90'
+    fill_in 'Data de término', with: '22/12/2033'
+
+    click_on 'Criar promoção'
 
   end
 end

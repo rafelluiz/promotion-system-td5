@@ -34,8 +34,16 @@
   <strong>Quantidade de cupom:</strong>
   <%= @promotion.coupon_quantity %>
 </p>
-
+<p>
+  <% if @promotion.approved? %>
+    <span>Status: Aprovada</span>
+  <% end %>
+</p>
 <%= link_to 'Voltar', promotions_path %>
+
+<% if current_user != @promotion.user %>
+  <%= link_to 'Aprovar Promoção', approve_promotion_path, method: :post %>
+<% end %>
 
 <% if @promotion.coupons.count == 0 %>
   <%= link_to 'Gerar cupons', generate_coupons_promotion_path(@promotion), method: :post%>
