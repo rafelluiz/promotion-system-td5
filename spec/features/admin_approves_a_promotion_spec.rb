@@ -13,7 +13,7 @@ feature 'Admin approves a promotion' do
 
     visit promotion_path(promotion)
 
-    expect(current_path).to eq new_promotion_path
+    expect(current_path).to eq promotion_path(promotion)
   end
 
   scenario 'must not be the promotion creator' do
@@ -49,7 +49,7 @@ feature 'Admin approves a promotion' do
                                   expiration_date: '22/12/2033', user: creator)
     approval_user = User.create!(email: 'henrique@email.com', password: '123456')
 
-    login_as other_user, scope: :user
+    login_as approval_user, scope: :user
     visit promotion_path(promotion)
     click_on 'Aprovar Promoção'
 

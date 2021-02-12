@@ -3,6 +3,7 @@ class PromotionApproval < ApplicationRecord
   belongs_to :user
 
   validate :different_user
+
   private
 
   def different_user
