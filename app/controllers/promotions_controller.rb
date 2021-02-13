@@ -8,6 +8,7 @@ class PromotionsController < ApplicationController
 
   def new
     @promotion = Promotion.new
+    @product_categories = ProductCategory.all
   end
 
   def create
@@ -17,6 +18,7 @@ class PromotionsController < ApplicationController
     if @promotion.save
       redirect_to @promotion, notice: 'Promotion was successfully created.'
     else
+      @product_categories = ProductCategory.all
       render :new ,notice: 'Promotion could not be created.'
     end
   end
@@ -57,7 +59,7 @@ class PromotionsController < ApplicationController
 
   def promotion_params
     params.require(:promotion).permit(:name, :description,:code,:discount_rate,:coupon_quantity,
-                                      :expiration_date)
+                                      :expiration_date,product_category_ids:[])
   end
 
 end

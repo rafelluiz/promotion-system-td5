@@ -9,11 +9,9 @@ feature 'Admin approves a promotion' do
                                   code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                                   expiration_date: '22/12/2033',user:user)
 
-    login_as user, scope: :user
-
     visit promotion_path(promotion)
 
-    expect(current_path).to eq promotion_path(promotion)
+    expect(current_path).to eq new_user_session_path
   end
 
   scenario 'must not be the promotion creator' do

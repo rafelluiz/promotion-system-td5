@@ -1,6 +1,8 @@
 <% if flash.notice %>
   <%= flash.notice %>
 <% end %>
+<%= link_to 'Voltar', promotions_path %>
+
 <p>
   <strong>Nome:</strong>
   <%= @promotion.name %>
@@ -39,7 +41,7 @@
     <span>Status: Aprovada</span>
   <% end %>
 </p>
-<%= link_to 'Voltar', promotions_path %>
+
 
 <% if current_user != @promotion.user %>
   <%= link_to 'Aprovar Promoção', approve_promotion_path, method: :post %>
@@ -51,7 +53,7 @@
 
 <%= link_to 'Editar', edit_promotion_path(@promotion) %>
 <%= link_to 'Apagar', promotion_path(@promotion), method: :delete, data:{confirm:'Are you sure you want to delete?'}%>
-<%= button_to 'Apagar btn',promotion_path(@promotion), method: :delete, data:{confirm:'Are you sure you want to delete?'} %>
+<%= button_to 'Apagar',promotion_path(@promotion), method: :delete, data:{confirm:'Are you sure you want to delete?'} %>
 
 <% @promotion.coupons.each do |coupon|  %>
   <div id="coupon-<%= coupon.id %>">
@@ -60,4 +62,10 @@
       <%= link_to 'Inativar', inactivate_coupon_path(coupon), method: :post %>
     <% end %>
   </div>
+<% end %>
+
+<h2>Categorias de Produtos</h2>
+
+<% @promotion.product_categories.each do |pc| %>
+  <%= pc.name %> - <%= pc.code %>
 <% end %>

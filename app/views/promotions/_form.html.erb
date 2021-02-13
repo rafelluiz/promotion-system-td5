@@ -33,6 +33,10 @@
     <%= form.date_field  :expiration_date %>
   </div>
 
+  <div class="form-group">
+    <%= form.collection_check_boxes :product_category_ids, @product_categories, :id, :name %>
+  </div>
+
   <div class="actions">
     <%= form.submit button_submit, class: 'btn btn-primary' %>
   </div>
