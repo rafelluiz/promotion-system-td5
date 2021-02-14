@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'Admin generates coupons' do
-  scenario 'of a promotion' do
+  scenario 'if a promotion approved' do
     user = User.create!(email: 'user@example.com',password: 'password')
 
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
@@ -38,6 +38,11 @@ feature 'Admin generates coupons' do
     click_on promotion.name
 
     expect(page).not_to have_content('Gerar cupons')
+  end
+
+  # TODO: fazer esse teste
+  xscenario 'hide button if promotion is not approved yet' do
+
   end
 
 end
