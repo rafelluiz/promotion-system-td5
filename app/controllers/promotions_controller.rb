@@ -25,12 +25,15 @@ class PromotionsController < ApplicationController
 
   def show; end
 
-  def edit; end
+  def edit
+    @product_categories = ProductCategory.all
+  end
 
   def update
     if @promotion.update(promotion_params)
       redirect_to @promotion, notice: 'Promotion was successfully updated.'
     else
+      @product_categories = ProductCategory.all
       render :edit
     end
   end
