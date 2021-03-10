@@ -63,6 +63,11 @@
   </div>
 <% end %>
 
+<% if @promotion.photo.attached? %>
+  <h2>Foto</h2>
+  <%= image_tag @promotion.photo %>
+<% end %>
+
 <h2>Categorias de Produtos</h2>
 
 <% @promotion.product_categories.each do |pc| %>

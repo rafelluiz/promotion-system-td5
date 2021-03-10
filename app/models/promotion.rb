@@ -1,4 +1,5 @@
 class Promotion < ApplicationRecord
+  has_one_attached :photo
   has_many :coupons
   has_one :promotion_approval
 
@@ -16,7 +17,7 @@ class Promotion < ApplicationRecord
     codes_coupons = []
     Coupon.transaction do
       (1..coupon_quantity).each do |number|
-        codes_coupons << {code: "#{code}-#{'%04d' % number}", created_at:Time.now, updated_at:Time.now}
+        codes_coupons << { code: "#{code}-#{'%04d' % number}", created_at:Time.now, updated_at:Time.now }
       end
       coupons.insert_all(codes_coupons)
     end
@@ -48,5 +49,4 @@ class Promotion < ApplicationRecord
       errors.add(name,'não pode ser alterado. Pois os cupons já foram gerados.')
     end
   end
-
 end
