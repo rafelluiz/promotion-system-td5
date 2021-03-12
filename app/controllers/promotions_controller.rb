@@ -52,6 +52,7 @@ class PromotionsController < ApplicationController
 
   def approve
     @promotion.approve!(current_user)
+    PromotionMailer.notify_approval(@promotion.id).deliver_now
     redirect_to @promotion
   end
 
