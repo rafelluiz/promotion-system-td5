@@ -1,4 +1,6 @@
 class Promotion < ApplicationRecord
+  has_secure_token :token, length: 65
+
   has_one_attached :photo
   has_many :coupons
   has_one :promotion_approval
